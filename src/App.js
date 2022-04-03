@@ -59,7 +59,7 @@ function CameraControls(){
       ref={controlsRef}
       args={[camera, domElement]}
       autoRotate
-      autoRotateSpeed={-0.9}
+      autoRotateSpeed={-0.0}
     />
   );
 }
@@ -71,7 +71,7 @@ function Points({setToggle, toggle}) {
 
   let t = 0;
   let f = 0.001;
-  let a = 3;
+  let a = 5;
   const graph = useCallback((x, z) => {
     return Math.sin(f * (x ** 2 + z ** 2+ t)) * a;
   }, [t, f, a])
@@ -79,7 +79,7 @@ function Points({setToggle, toggle}) {
 
 
   const waveCount = 112
-  const waveSep = 2
+  const waveSep = .5
 
   let wave = useMemo(() => {
     let wave = []
@@ -177,7 +177,7 @@ function AnimationCanvas() {
       <pointLight position={[5, 5, 5]} />
 
         <Points setToggle={setToggle} toggle={toggle} />
-        {/* <Cloud count={8} radius={20} /> */}
+        <Cloud count={8} radius={20} />
 
       </Suspense>
       <CameraControls/>
