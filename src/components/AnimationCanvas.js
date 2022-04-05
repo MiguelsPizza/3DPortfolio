@@ -64,8 +64,8 @@ function AnimationCanvas() {
       {/* <pointLight position={[5, 5, 5]} /> */}
 
         <Points {...props}  />
-        {/* <Cloud count={8} radius={20} /> */}
-        <TextContent/>
+        <Cloud count={8} radius={20} />
+        {/* <TextContent/> */}
 
       </Suspense>
       <CameraControls/>
