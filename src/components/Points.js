@@ -1,12 +1,14 @@
 import { TextureLoader } from "three";
-import React from 'react'
+import React, { useState } from "react";
+import { Html } from "@react-three/drei";
 import { useFrame, useLoader } from "@react-three/fiber";
 import circleImg from "../assets/circle.png";
 import { useCallback, useMemo, useRef } from "react";
 import { Text } from "@react-three/drei";
 
-function Points({ setToggle, toggle, amplitude, frequency, period, wCount, wSep, trig }) {
+function Points({ frequency, period, wCount, wSep, trig }) {
   const imgTex = useLoader(TextureLoader, circleImg);
+  const [amplitude, setAmplitude] = useState(5);
   const bufferRef = useRef();
 
   let t = period ?? 0;
@@ -28,21 +30,21 @@ function Points({ setToggle, toggle, amplitude, frequency, period, wCount, wSep,
       for (let zi = 0; zi < waveCount; zi++) {
         let x = xi - waveCount / 2;
         let z;
-        if(trig === 'cos') {
-          z = waveSep * (zi - waveCount / 2) * Math.cos(f * (x ** 2 + t))
-        }else if (trig === 'tan'){
-          z = waveSep * (zi - waveCount / 2) * Math.tan(f * (x ** 2 + t))
-        }else{
-          z = waveSep * (zi - waveCount / 2) * Math.sin(f * (x ** 2 + t))
+        if (trig === "cos") {
+          z = waveSep * (zi - waveCount / 2) * Math.cos(f * (x ** 2 + t));
+        } else if (trig === "tan") {
+          z = waveSep * (zi - waveCount / 2) * Math.tan(f * (x ** 2 + t));
+        } else {
+          z = waveSep * (zi - waveCount / 2) * Math.sin(f * (x ** 2 + t));
         }
         let y = graph(x, z);
         wave.push(x, y, z);
       }
     }
     return new Float32Array(wave);
-  }, [toggle, graph]);
+  }, [graph, waveCount, waveSep, f, t, trig]);
 
-  let count = 1
+  let count = 1;
   useFrame(() => {
     t += 15;
     const positions = bufferRef.current.array;
@@ -57,12 +59,11 @@ function Points({ setToggle, toggle, amplitude, frequency, period, wCount, wSep,
     }
     bufferRef.current.needsUpdate = true;
 
-    if(count === 1){
-      console.log('bufferRef', bufferRef)
-      count++
+    if (count === 1) {
+      console.log("bufferRef", bufferRef);
+      count++;
     }
   });
-
 
   // const ref = useRef();
   // useFrame(({ camera }) => {
@@ -71,6 +72,9 @@ function Points({ setToggle, toggle, amplitude, frequency, period, wCount, wSep,
 
   return (
     <>
+      <Html>
+        <button onClick={() => setAmplitude(10)}>change amplitude </button>
+      </Html>
 
       <points>
         <bufferGeometry attach="geometry">
