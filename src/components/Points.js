@@ -5,10 +5,12 @@ import { useFrame, useLoader } from "@react-three/fiber";
 import circleImg from "../assets/circle.png";
 import { useCallback, useMemo, useRef } from "react";
 import { Text } from "@react-three/drei";
+import WelcomePage from "./innerHtml/WelcomePage.js";
+
 
 function Points({ frequency, period, wCount, wSep, trig }) {
   const imgTex = useLoader(TextureLoader, circleImg);
-  const [amplitude, setAmplitude] = useState(5);
+  const [amplitude, setAmplitude] = useState(3);
   const bufferRef = useRef();
 
   let t = period ?? 0;
@@ -73,7 +75,8 @@ function Points({ frequency, period, wCount, wSep, trig }) {
   return (
     <>
       <Html>
-        <button onClick={() => setAmplitude(10)}>change amplitude </button>
+        {/* <button onClick={() => setAmplitude(10)}>change amplitude </button> */}
+        <WelcomePage />
       </Html>
 
       <points>
