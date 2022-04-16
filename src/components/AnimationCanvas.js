@@ -1,10 +1,11 @@
-import { Canvas, useFrame } from "@react-three/fiber";
+import { Canvas } from "@react-three/fiber";
 import { Suspense, useState, useCallback, useRef } from "react";
 import Points from "./Points.js";
 import Cloud from "./Cloud.js";
 import CameraControls from "./CameraControls.js";
-import { Text, Html } from "@react-three/drei";
-import TextContent from "./TextContent.js";
+import {Stars } from "@react-three/drei";
+
+
 
 function AnimationCanvas() {
   const [frequency, setFrequency] = useState(0.001);
@@ -62,14 +63,18 @@ function AnimationCanvas() {
         ref={cameraRef}
         camera={{ position: [xPos, yPos, zPos], fov: 50 }}
       >
+<Stars radius={100} depth={50} count={5000} factor={4} saturation={0} fade speed={1} />
+
         <Suspense fallback={null}>
           {/* <pointLight position={[5, 5, 5]} /> */}
 
+
+
           <Points {...props} />
           {/* <Cloud count={8} radius={20} /> */}
-          {/* <TextContent/> */}
+
         </Suspense>
-        {/* <CameraControls /> */}
+        <CameraControls />
       </Canvas>
     </>
   );

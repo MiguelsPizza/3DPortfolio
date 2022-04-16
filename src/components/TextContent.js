@@ -8,7 +8,7 @@ import { Text } from "@react-three/drei";
 
 
 
-function TextContent({ count = 4, radius = 20 }) {
+function TextContent({ hideHtml, setHideHtml }) {
   const ref = useRef();
   useFrame(({ camera }) => {
     ref.current.quaternion.copy(camera.quaternion);
@@ -20,6 +20,7 @@ function TextContent({ count = 4, radius = 20 }) {
     scale={[10, 10, 10]}
     color="White"
     position={[10, 20, 0]}
+    onClick={() => setHideHtml(!hideHtml)}
   >
 Hello World
   </Text>

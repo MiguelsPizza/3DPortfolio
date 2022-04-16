@@ -6,11 +6,12 @@ import circleImg from "../assets/circle.png";
 import { useCallback, useMemo, useRef } from "react";
 import { Text } from "@react-three/drei";
 import WelcomePage from "./innerHtml/WelcomePage.js";
-
+import TextContent from "./TextContent.js";
 
 function Points({ frequency, period, wCount, wSep, trig }) {
   const imgTex = useLoader(TextureLoader, circleImg);
   const [amplitude, setAmplitude] = useState(3);
+  const [hideHtml, setHideHtml] = useState(false);
   const bufferRef = useRef();
 
   let t = period ?? 0;
@@ -47,7 +48,7 @@ function Points({ frequency, period, wCount, wSep, trig }) {
   }, [graph, waveCount, waveSep, f, t, trig]);
 
   let count = 1;
-  useFrame(() => {
+  useFrame((state) => {
     t += 15;
     const positions = bufferRef.current.array;
     let i = 0;
@@ -62,7 +63,7 @@ function Points({ frequency, period, wCount, wSep, trig }) {
     bufferRef.current.needsUpdate = true;
 
     if (count === 1) {
-      console.log("bufferRef", bufferRef);
+      console.log("bufferRef", state);
       count++;
     }
   });
@@ -75,9 +76,10 @@ function Points({ frequency, period, wCount, wSep, trig }) {
   return (
     <>
       <Html>
-        {/* <button onClick={() => setAmplitude(10)}>change amplitude </button> */}
-        <WelcomePage />
+        <button onClick={() => setAmplitude(10)}>change amplitude </button>
+        {hideHtml &&<WelcomePage />}
       </Html>
+      <TextContent setHideHtml={setHideHtml} hideHtml={hideHtml}/>
 
       <points>
         <bufferGeometry attach="geometry">
