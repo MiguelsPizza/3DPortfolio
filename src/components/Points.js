@@ -19,7 +19,7 @@ function Points({ frequency, period, wCount, wSep, trig }) {
   let a = amplitude ?? 5;
   const graph = useCallback(
     (x, z) => {
-      return Math.sin(f * (x ** 2 + z ** 2 + t)) * a;
+      return Math.tan(f * (x ** 2 + z ** 2 + t)) * a;
     },
     [t, f, a]
   );
